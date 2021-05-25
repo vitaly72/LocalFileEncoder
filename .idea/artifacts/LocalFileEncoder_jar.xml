@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="LocalFileEncoder:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/LocalFileEncoder_jar</output-path>
+    <root id="archive" name="LocalFileEncoder.jar">
+      <element id="module-output" name="LocalFileEncoder" />
+    </root>
+  </artifact>
+</component>
