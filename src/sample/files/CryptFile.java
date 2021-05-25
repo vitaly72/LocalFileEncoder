@@ -26,11 +26,7 @@ public class CryptFile {
         File encryptedFile = createNewEncryptFile(pathEnFile);
 
         AES.fileProcessor(Cipher.ENCRYPT_MODE, secretKeySpec, inputFile, encryptedFile);
-        if (encryptedFile.createNewFile()) {
-            result = true;
-        } else {
-            result = false;
-        }
+        result = encryptedFile.createNewFile();
 
         return result;
     }
@@ -79,13 +75,11 @@ public class CryptFile {
         int targetStringLength = 5;
         Random random = new Random();
 
-        String generatedString = random.ints(leftLimit, rightLimit + 1)
+        return random.ints(leftLimit, rightLimit + 1)
                 .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
                 .limit(targetStringLength)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
-
-        return generatedString;
     }
 
     /**

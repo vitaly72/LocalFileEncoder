@@ -24,30 +24,30 @@
             <children>
                 <MenuBar fx:id="menuBar">
                     <menus>
-                        <Menu fx:id="menuFile" mnemonicParsing="false" text="Файл">
+                        <Menu fx:id="menuFile" mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem fx:id="menuItemOpenFile" mnemonicParsing="false" onAction="#menuItemOpenFileClicked" text="Відкрити файли" />
+                                <MenuItem fx:id="menuItemOpenFile" mnemonicParsing="false" onAction="#menuItemOpenFileClicked" text="Open files" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                                <MenuItem fx:id="menuItemExit" mnemonicParsing="false" onAction="#menuItemExitClicked" text="Вийти" />
+                                <MenuItem fx:id="menuItemExit" mnemonicParsing="false" onAction="#menuItemExitClicked" text="Quit" />
                             </items>
                         </Menu>
-                        <Menu fx:id="menuSettings" mnemonicParsing="false" text="Налаштування">
+                        <Menu fx:id="menuSettings" mnemonicParsing="false" text="Settings">
                             <items>
-                                <MenuItem fx:id="menuItemChangePathEnFiles" mnemonicParsing="false" onAction="#menuItemChangePathEnFilesClicked" text="Змінити шлях  для зашифрованих файлів" />
-                                <MenuItem fx:id="menuItemChangePathDeFiles" mnemonicParsing="false" onAction="#menuItemChangePathDeFilesClicked" text="Змінити шлях  для розшифрованих файлів" />
+                                <MenuItem fx:id="menuItemChangePathEnFiles" mnemonicParsing="false" onAction="#menuItemChangePathEnFilesClicked" text="Change the path for encrypted files" />
+                                <MenuItem fx:id="menuItemChangePathDeFiles" mnemonicParsing="false" onAction="#menuItemChangePathDeFilesClicked" text="Change the path for decrypted files" />
                             </items>
                         </Menu>
-                        <Menu fx:id="menuHelp" mnemonicParsing="false" text="Допомога">
+                        <Menu fx:id="menuHelp" mnemonicParsing="false" text="Help">
                             <items>
-                                <MenuItem fx:id="menuItemHelp" mnemonicParsing="false" onAction="#menuItemHelpClicked" text="Інструкція" />
+                                <MenuItem fx:id="menuItemHelp" mnemonicParsing="false" onAction="#menuItemHelpClicked" text="Instruction" />
                             </items>
                         </Menu>
                     </menus>
                 </MenuBar>
                 <HBox prefHeight="60.0" prefWidth="600.0" spacing="8.0">
                     <children>
-                        <PasswordField fx:id="passwordField" promptText="Введіть пароль" styleClass=".error { -fx-border-color: red ; }" />
-                        <CheckBox fx:id="showPassword" mnemonicParsing="false" onAction="#showPasswordClicked" selected="true" text="Показати">
+                        <PasswordField fx:id="passwordField" promptText="Enter password" styleClass=".error { -fx-border-color: red ; }" />
+                        <CheckBox fx:id="showPassword" mnemonicParsing="false" onAction="#showPasswordClicked" selected="true" text="Show">
                             <HBox.margin>
                                 <Insets top="2.0" />
                             </HBox.margin>
@@ -57,14 +57,14 @@
                                 <Insets />
                             </opaqueInsets>
                         </Separator>
-                        <CheckBox fx:id="deleteOriginal" mnemonicParsing="false" onAction="#deleteOriginalClicked" selected="true" text="Видалити оригінал">
+                        <CheckBox fx:id="deleteOriginal" mnemonicParsing="false" onAction="#deleteOriginalClicked" selected="true" text="Delete original files">
                             <HBox.margin>
                                 <Insets top="2.0" />
                             </HBox.margin>
                         </CheckBox>
                         <Separator orientation="VERTICAL" prefHeight="200.0" style="-fx-min-height: 25; -fx-max-height: 25;" />
                         <Region prefHeight="44.0" prefWidth="72.0" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="startButton" mnemonicParsing="false" onMouseClicked="#startButtonClicked" prefHeight="27.0" prefWidth="99.0" text="Розпочати">
+                        <Button fx:id="startButton" mnemonicParsing="false" onMouseClicked="#startButtonClicked" prefHeight="27.0" prefWidth="99.0" text="Start">
                             <HBox.margin>
                                 <Insets right="1.0" />
                             </HBox.margin>
@@ -85,7 +85,7 @@
             <children>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label text="Поточний файл:">
+                        <Label text="Current file:">
                             <HBox.margin>
                                 <Insets left="2.0" top="5.0" />
                             </HBox.margin>
@@ -96,7 +96,7 @@
                             </HBox.margin>
                         </ProgressBar>
                         <Region prefHeight="30.0" prefWidth="16.0" HBox.hgrow="ALWAYS" />
-                        <Label text="Всі файли:">
+                        <Label text="All files:">
                             <HBox.margin>
                                 <Insets top="5.0" />
                             </HBox.margin>
@@ -107,7 +107,7 @@
                             </HBox.margin>
                         </ProgressBar>
                         <Region prefHeight="30.0" prefWidth="34.0" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="stopButton" mnemonicParsing="false" onAction="#stopButtonClicked" prefHeight="25.0" prefWidth="99.0" text="Очистити">
+                        <Button fx:id="stopButton" mnemonicParsing="false" onAction="#stopButtonClicked" prefHeight="25.0" prefWidth="99.0" text="Clear">
                             <HBox.margin>
                                 <Insets right="7.0" top="1.0" />
                             </HBox.margin>
@@ -124,12 +124,12 @@
                     <center>
                         <ScrollPane fx:id="pane" prefHeight="274.0" prefWidth="600.0" style="-fx-border-color: blue;" BorderPane.alignment="CENTER">
                             <content>
-                                <Label fx:id="logLabel" alignment="TOP_LEFT" text="Файли:" />
+                                <Label fx:id="logLabel" alignment="TOP_LEFT" text="Files:" />
                             </content>
                         </ScrollPane>
                     </center>
                <top>
-                  <Label text="↓↓↓Перетяніть файл в панель↓↓↓" BorderPane.alignment="CENTER" />
+                  <Label text="↓↓↓Drag the file into the panel↓↓↓" BorderPane.alignment="CENTER" />
                </top>
                 </BorderPane>
             </children>

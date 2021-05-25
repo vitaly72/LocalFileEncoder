@@ -19,7 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/res/fxml/sample.fxml"));
-        primaryStage.setTitle("Шифратор локальних файлів");
+        primaryStage.setTitle("Local File Encoder");
         primaryStage.setScene(new Scene(root, 600, 380));
         primaryStage.resizableProperty().setValue(Boolean.FALSE);
         primaryStage.getIcons().add(new Image("file:src\\res\\icon.png"));

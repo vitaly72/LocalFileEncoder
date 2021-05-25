@@ -85,58 +85,46 @@ public class Controller {
         passwordField.setStyle("-fx-prompt-text-fill: black");
 
         pane.setPrefSize(anchorPane.getPrefWidth(), anchorPane.getPrefHeight());
-        pane.setOnDragOver(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                final Dragboard db = event.getDragboard();
-                if (db.hasFiles()) {
-                    event.acceptTransferModes(TransferMode.COPY);
-                    final File file = db.getFiles().get(0);
-                } else {
-                    event.consume();
-                }
-            }
-        });
-        pane.setOnDragDropped(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                final Dragboard dragboard = event.getDragboard();
-                boolean success = false;
-                if (dragboard.hasFiles()) {
-                    success = true;
-
-                    for (File fileItem : dragboard.getFiles()) {
-                        filePathList.add(fileItem.getAbsolutePath());
-                        logLabel.setText(logLabel.getText() + "\n" + fileItem.getAbsolutePath());
-                    }
-                    count = 3;
-
-                    final File file = dragboard.getFiles().get(0);
-                    filePath = filePathList.get(0);
-
-                    progressBarAllFiles.setProgress(0);
-                    progressBar.setProgress(0);
-
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                File droppedFile = new File(String.valueOf(new FileInputStream(file.getAbsolutePath())));
-                            } catch (FileNotFoundException ex) {
-                            }
-                        }
-                    });
-                }
-                event.setDropCompleted(success);
+        pane.setOnDragOver(event -> {
+            final Dragboard db = event.getDragboard();
+            if (db.hasFiles()) {
+                event.acceptTransferModes(TransferMode.COPY);
+                final File file = db.getFiles().get(0);
+            } else {
                 event.consume();
             }
         });
-        pane.setOnDragExited(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                System.out.println("exited");
+
+        pane.setOnDragDropped(event -> {
+            final Dragboard dragboard = event.getDragboard();
+            boolean success = false;
+            if (dragboard.hasFiles()) {
+                success = true;
+
+                for (File fileItem : dragboard.getFiles()) {
+                    filePathList.add(fileItem.getAbsolutePath());
+                    logLabel.setText(logLabel.getText() + "\n" + fileItem.getAbsolutePath());
+                }
+                count = 3;
+
+                final File file = dragboard.getFiles().get(0);
+                filePath = filePathList.get(0);
+
+                progressBarAllFiles.setProgress(0);
+                progressBar.setProgress(0);
+
+                Platform.runLater(() -> {
+                    try {
+                        File droppedFile = new File(String.valueOf(new FileInputStream(file.getAbsolutePath())));
+                    } catch (FileNotFoundException ex) {
+                    }
+                });
             }
+            event.setDropCompleted(success);
+            event.consume();
         });
+
+        pane.setOnDragExited(event -> System.out.println("exited"));
 
         menuItemOpenFile.setAccelerator(KeyCombination.keyCombination("Ctrl+O"));
         menuItemExit.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
@@ -148,11 +136,8 @@ public class Controller {
     /**
      * Обробка кліку кнопки Очистити де файл зашифровується або розшифровується
      *
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     * @throws IOException
      */
-    public void stopButtonClicked() throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
+    public void stopButtonClicked() {
         filePathList.clear();
         logLabel.setText("Файли: ");
         passwordField.setText("");
@@ -236,13 +221,13 @@ public class Controller {
             stopButtonClicked();
         } else {
             PaneResult paneResult = new PaneResult(logLabel, filePathList, deleteOriginalValue);
-            if (paneResult.allFileEncResult() == false) {
+            if (!paneResult.allFileEncResult()) {
                 if (paneResult.passwordResult(passwordField.getText()) && paneResult.settingsResult()) {
                     SecretKeySpec secretKeySpec = AES.getSecretKeySpec(passwordField.getText());
                     if (paneResult.fileIsDecrypt()) {
                         if (CryptFile.deCryptFiles(filePath, Settings.getPathDeFiles(), secretKeySpec)) {
-                            setTextLabel(logLabel, "Неправильний пароль!");
-                            setTextLabel(logLabel, "Залишолось спроб: " + count);
+                            setTextLabel(logLabel, "Wrong password!");
+                            setTextLabel(logLabel, "Attempts left: " + count);
                             count--;
                         } else {
                             if (paneResult.deleteZipResult()) {
@@ -251,7 +236,7 @@ public class Controller {
                             }
                         }
                     } else {
-                        if (paneResult.equalFileNameResult() == false) {
+                        if (!paneResult.equalFileNameResult()) {
                             paneResult.filesEncryptResult(secretKeySpec);
                             progressBar.setProgress(1.0);
                             progressBarAllFiles.setProgress(1.0);

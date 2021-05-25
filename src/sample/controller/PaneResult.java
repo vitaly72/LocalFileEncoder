@@ -42,7 +42,7 @@ public class PaneResult {
     public void filesEncryptResult(SecretKeySpec secretKeySpec) throws IOException {
         ZipFile.zipMultipleFiles(filePathList);
         CryptFile.enCryptFiles(ZipFile.zipFile, Settings.getPathEnFiles(), secretKeySpec);
-        setTextLabel(label, "Файл зашифровано");
+        setTextLabel(label, "File encrypted");
         ZipFile.deleteFile(ZipFile.zipFile);
         for(String path : filePathList){
             deleteFile(path, delFile);
@@ -65,7 +65,7 @@ public class PaneResult {
             ZipFile.unzipFile(pathZip, Settings.getPathDeFiles());
             ZipFile.deleteFile(pathZip);
 
-            setTextLabel(label, "Файл розшифровано");
+            setTextLabel(label, "File decrypted");
 
             deleteFile(filePathList.get(0), delFile);
             filePathList.clear();
@@ -95,7 +95,7 @@ public class PaneResult {
         if (passwordVerification(password)) {
             return true;
         } else {
-            setTextLabel(label, "Пароль повинен складатись не менше із 4 символів!");
+            setTextLabel(label, "The password must be at least 4 characters long!");
             return false;
         }
     }
@@ -107,7 +107,7 @@ public class PaneResult {
      */
     public boolean equalFileNameResult() {
         if (equalFileName()) {
-            setTextLabel(label, "Однакові назви файлів! Перейменуйте файл щоб не було однакових назв у файлів одного розширення");
+            setTextLabel(label, "Same file names! Rename the file so that the files in the same extension do not have the same name");
             return true;
         } else {
             return false;
@@ -140,7 +140,7 @@ public class PaneResult {
      */
     public boolean allFileEncResult() {
         if (allFileEnc()) {
-            setTextLabel(label, "Відкрийте тільки один зашифрований файл!");
+            setTextLabel(label, "Open only one encrypted file!");
             return true;
         } else {
             return false;
@@ -181,9 +181,9 @@ public class PaneResult {
      */
     public boolean settingsResult() {
         if (Settings.getPathDeFiles().length() < 0) {
-            setTextLabel(label, "Виберіть шлях для збереження зашифрованих файлів (в пунткі меню Налаштування)");
+            setTextLabel(label, "Select a path to save encrypted files (in the Settings menu item)");
         } else if (Settings.getPathEnFiles().length() < 0) {
-            setTextLabel(label, "Виберіть шлях для збереження розшифрованих файлів (в пунткі меню Налаштування)");
+            setTextLabel(label, "Select a path to save encrypted files (in the Settings menu item)");
         } else {
             return true;
         }
